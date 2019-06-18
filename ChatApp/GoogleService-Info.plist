@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>959336111842-gt67artm909t9l8q473t2d5m192oqu3a.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.959336111842-gt67artm909t9l8q473t2d5m192oqu3a</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBIPv8hhxdgWK8PEn0VVjPPzXrbnjk3oMU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>959336111842</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.zotionapps.ChatApp</string>
+	<key>PROJECT_ID</key>
+	<string>snapchat-d994d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>snapchat-d994d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:959336111842:ios:c2a1c59d6292a4cb</string>
+	<key>DATABASE_URL</key>
+	<string>https://snapchat-d994d.firebaseio.com</string>
+</dict>
+</plist>
