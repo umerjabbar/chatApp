@@ -1,0 +1,48 @@
+PODS:
+  - Alamofire (4.8.2)
+  - BulletinBoard (3.0.0)
+  - DTPhotoViewerController (2.0.0)
+  - Gallery (2.2.0)
+  - Hero (1.4.0)
+  - InputBarAccessoryView (4.2.2)
+  - Kingfisher (5.4.0)
+  - MessageKit (3.0.0):
+    - InputBarAccessoryView (~> 4.2.2)
+  - SwiftyJSON (5.0.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - BulletinBoard
+  - DTPhotoViewerController
+  - Gallery
+  - Hero
+  - Kingfisher (~> 5.0)
+  - MessageKit (~> 3.0.0-swift5)
+  - SwiftyJSON
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - BulletinBoard
+    - DTPhotoViewerController
+    - Gallery
+    - Hero
+    - InputBarAccessoryView
+    - Kingfisher
+    - MessageKit
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  BulletinBoard: 927f4f9fd22503ceecd71bfc830fd65d5996593a
+  DTPhotoViewerController: 1c2151c093fbc5e6c844a4e60ba2a8144e6f8ec5
+  Gallery: 3f4c780c4b22906d6b0a5e55d12167cdc4b4fc5b
+  Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
+  InputBarAccessoryView: 2b937602598e2fab3149f37f51dd7ad795653812
+  Kingfisher: 9c8f2cc6710334e06f32ba2b45e77707d5e2f0c9
+  MessageKit: e892a9ca49ebe6d82684d3a93ad84021fa23e2c6
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+
+PODFILE CHECKSUM: ff51386433382b4eabb37171be8a3ffd650e8410
+
+COCOAPODS: 1.7.1
