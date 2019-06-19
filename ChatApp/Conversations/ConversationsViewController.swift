@@ -86,18 +86,28 @@ extension ConversationsViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let user = self.viewModel.onlineUsers[indexPath.item]
-        let item = MessageHead()
-        item.id = user.id
-        item.name = user.name
-        item.image = user.image
-        item.message = ""
-        item.otherUser = ""
-        item.time = ""
-        
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-        vc.viewModel.item = item
-        vc.viewModel.chatType = "new"
+        
+        let user = self.viewModel.onlineUsers[indexPath.item]
+        let ind = self.viewModel.messageHeads.firstIndex { (head) -> Bool in
+            return head.id == user.id
+        }
+        if let index = ind {
+            let item = self.viewModel.messageHeads[index]
+            vc.viewModel.item = item
+            vc.viewModel.chatType = "individual"
+        }else{
+            let item = MessageHead()
+            item.id = user.id
+            item.name = user.name
+            item.image = user.image
+            item.message = ""
+            item.otherUser = ""
+            item.time = ""
+            vc.viewModel.item = item
+            vc.viewModel.chatType = "new"
+        }
+
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -128,7 +138,7 @@ extension ConversationsViewController : ConversationsResponseDelegate {
     func messageHeadsReceived() {
         let offset = self.tableView.contentOffset
         self.tableView.reloadData()
-       self.tableView.contentOffset = offset
+        self.tableView.contentOffset = offset
         
     }
     

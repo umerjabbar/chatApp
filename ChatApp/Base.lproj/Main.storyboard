@@ -230,19 +230,19 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Umer Jabbar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5DK-g1-PvV">
-                                                            <rect key="frame" x="76" y="8" width="94.5" height="19.5"/>
+                                                            <rect key="frame" x="76" y="16" width="94.5" height="19.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Testing testing one two three" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyw-dy-qu7">
-                                                            <rect key="frame" x="76" y="35.5" width="263" height="32.5"/>
+                                                            <rect key="frame" x="76" y="43.5" width="263" height="17"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12-12-2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFH-zw-wyJ">
-                                                            <rect key="frame" x="265" y="10" width="75" height="17"/>
+                                                            <rect key="frame" x="265" y="16" width="75" height="17"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -250,12 +250,11 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="oFH-zw-wyJ" firstAttribute="top" secondItem="O8d-EF-sYZ" secondAttribute="top" constant="10" id="0G1-gN-MVH"/>
+                                                        <constraint firstItem="oFH-zw-wyJ" firstAttribute="top" secondItem="O8d-EF-sYZ" secondAttribute="top" constant="16" id="0G1-gN-MVH"/>
                                                         <constraint firstItem="haZ-4q-Zt6" firstAttribute="top" secondItem="O8d-EF-sYZ" secondAttribute="top" constant="8" id="5BZ-WU-F1J"/>
-                                                        <constraint firstItem="5DK-g1-PvV" firstAttribute="top" secondItem="haZ-4q-Zt6" secondAttribute="top" id="BnR-xH-SPw"/>
+                                                        <constraint firstItem="5DK-g1-PvV" firstAttribute="top" secondItem="haZ-4q-Zt6" secondAttribute="top" constant="8" id="BnR-xH-SPw"/>
                                                         <constraint firstItem="haZ-4q-Zt6" firstAttribute="leading" secondItem="O8d-EF-sYZ" secondAttribute="leading" constant="8" id="Cd4-K0-MU2"/>
                                                         <constraint firstAttribute="trailing" secondItem="oFH-zw-wyJ" secondAttribute="trailing" constant="15" id="JDK-ef-tBg"/>
-                                                        <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="oyw-dy-qu7" secondAttribute="bottom" constant="8" id="Jrm-KE-JJ5"/>
                                                         <constraint firstItem="5DK-g1-PvV" firstAttribute="leading" secondItem="haZ-4q-Zt6" secondAttribute="trailing" constant="8" id="Su8-ZG-cIe"/>
                                                         <constraint firstItem="oFH-zw-wyJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5DK-g1-PvV" secondAttribute="trailing" constant="8" id="TQG-UN-a69"/>
                                                         <constraint firstItem="oyw-dy-qu7" firstAttribute="top" secondItem="5DK-g1-PvV" secondAttribute="bottom" constant="8" id="aaz-R6-d3Q"/>

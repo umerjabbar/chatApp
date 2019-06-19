@@ -52,6 +52,9 @@ class ConversationsViewModel: NSObject {
             self.onlineUsers.sort(by: { (item1, item2) -> Bool in
                 return item1.isConnected
             })
+            self.onlineUsers = self.onlineUsers.filter({ (user) -> Bool in
+                return user.id != AppStateManager.shared.id
+            })
             self.delegate?.onlineUsersReceived()
         }
     }
