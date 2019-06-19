@@ -10,9 +10,21 @@ import UIKit
 
 class MessageHeadTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    func setup(item: MessageHead){
+        self.profileImageView.imageUrl = item.image
+        self.titleLabel.text = item.name
+        self.messageLabel.text = item.message
+        self.timeLabel.text = item.time
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

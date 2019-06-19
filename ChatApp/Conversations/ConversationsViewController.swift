@@ -15,13 +15,11 @@ class ConversationsViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: UIView!
-
-    var messagegheads = [(String, String, String, String, String)]()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,26 +30,16 @@ class ConversationsViewController: UIViewController {
         
         self.viewModel.delegate = self
         self.viewModel.getOnlineUsers()
+        self.viewModel.getMessageHeads()
         self.viewModel.offlineFunction()
         
-        self.messagegheads = [
-            ("0",  "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500", "Sample Image 1", "", ""),
-            ("1",  "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500", "Sample User 2", "", ""),
-            ("2", "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500", "Sample User 3", "", ""),
-        ]
-        
     }
-
+    
     @IBAction func viewAllButtonAction(_ sender: Any) {
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "OnlineUsersViewController") as! OnlineUsersViewController
         vc.viewModel = self.viewModel
         self.present(vc, animated: true, completion: nil)
-        
-//        let rect = self.collectionView.frame
-//        let rect2 = CGRect(x: rect.origin.x, y: rect.origin.y, width: rect.width, height: rect.height + 400)
-//
-//        self.collectionView.frame = rect2
     }
     
 }
@@ -77,22 +65,41 @@ extension ConversationsViewController : UICollectionViewDataSource {
 extension ConversationsViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.messagegheads.count
+        return self.viewModel.messageHeads.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageHeadTableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageHeadTableViewCell", for: indexPath) as! MessageHeadTableViewCell
         
+        let item = self.viewModel.messageHeads[indexPath.row]
+        cell.setup(item: item)
         
         return cell
         
     }
-
+    
 }
 
 
 extension ConversationsViewController : UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let user = self.viewModel.onlineUsers[indexPath.item]
+        let item = MessageHead()
+        item.id = user.id
+        item.name = user.name
+        item.image = user.image
+        item.message = ""
+        item.otherUser = ""
+        item.time = ""
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+        vc.viewModel.item = item
+        vc.viewModel.chatType = "new"
+        self.present(vc, animated: true, completion: nil)
+    }
     
 }
 
@@ -100,10 +107,12 @@ extension ConversationsViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        let nav = UINavigationController(rootViewController: ChatViewController())
-//        self.present(nav, animated: true, completion: nil)
+        //        let nav = UINavigationController(rootViewController: ChatViewController())
+        //        self.present(nav, animated: true, completion: nil)
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+        vc.viewModel.chatType = "individual"
+        vc.viewModel.item = self.viewModel.messageHeads[indexPath.row]
         self.present(vc, animated: true, completion: nil)
         
     }
@@ -117,6 +126,9 @@ extension ConversationsViewController : ConversationsResponseDelegate {
     }
     
     func messageHeadsReceived() {
+        let offset = self.tableView.contentOffset
+        self.tableView.reloadData()
+       self.tableView.contentOffset = offset
         
     }
     

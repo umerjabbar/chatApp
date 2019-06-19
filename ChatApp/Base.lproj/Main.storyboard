@@ -292,6 +292,12 @@
                                             </userDefinedRuntimeAttributes>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="messageLabel" destination="oyw-dy-qu7" id="Iqq-kx-ynS"/>
+                                            <outlet property="profileImageView" destination="haZ-4q-Zt6" id="JMn-aP-Exe"/>
+                                            <outlet property="timeLabel" destination="oFH-zw-wyJ" id="byj-vJ-Z6S"/>
+                                            <outlet property="titleLabel" destination="5DK-g1-PvV" id="ZRB-Is-5UF"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -596,7 +602,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.92817271369999998" green="0.92817271369999998" blue="0.92817271369999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Jb5-iC-6V8" firstAttribute="leading" secondItem="sTu-R3-oaj" secondAttribute="leading" id="8wO-ub-SnC"/>
                             <constraint firstItem="Jb5-iC-6V8" firstAttribute="trailing" secondItem="sTu-R3-oaj" secondAttribute="trailing" id="CrA-IC-MOQ"/>

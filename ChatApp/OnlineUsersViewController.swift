@@ -25,7 +25,7 @@ class OnlineUsersViewController: UIViewController {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         
-        self.viewModel.delegate = self
+//        self.viewModel.delegate = self
         
     }
     
@@ -35,7 +35,7 @@ class OnlineUsersViewController: UIViewController {
     }
     
     func openWide(){
-        UIView.animate(withDuration: 300) {
+        UIView.animate(withDuration: 800) {
             self.viewHeightConstraint.constant = self.view.frame.height
             if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
                 layout.scrollDirection = .vertical
@@ -44,7 +44,7 @@ class OnlineUsersViewController: UIViewController {
     }
     
     func closeWide(){
-        UIView.animate(withDuration: 300, animations: {
+        UIView.animate(withDuration: 800, animations: {
             self.viewHeightConstraint.constant = 117
             if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
                 layout.scrollDirection = .horizontal

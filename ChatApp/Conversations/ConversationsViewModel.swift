@@ -15,6 +15,7 @@ class ConversationsViewModel: NSObject {
     weak var delegate : ConversationsResponseDelegate?
     
     var onlineUsers = [OnlineUser]()
+    var messageHeads = [MessageHead]()
     
     func offlineFunction() {
         let myConnectionsRef = Database.database().reference().child("users/connections");
@@ -55,5 +56,18 @@ class ConversationsViewModel: NSObject {
         }
     }
     
-    
+    func getMessageHeads(){
+        let myConnectionsRef = Database.database().reference().child("Users/\(AppStateManager.shared.id)/ChatHeads");
+        myConnectionsRef.observe(.value) { (snapshot) in
+            guard let value = snapshot.value as? [String : Any] else{return}
+            let values = value.map({ (key,val) -> Any in
+                return val
+            })
+            guard let jsonArray = JSON(rawValue: values) else{return}
+            self.messageHeads = jsonArray.arrayValue.map({ MessageHead(fromJson: $0)})
+            self.messageHeads.reverse()
+            self.delegate?.messageHeadsReceived()
+        }
+    }
+
 }
