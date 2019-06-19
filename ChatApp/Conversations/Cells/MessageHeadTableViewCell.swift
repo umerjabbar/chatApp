@@ -24,7 +24,7 @@ class MessageHeadTableViewCell: UITableViewCell {
         self.profileImageView.imageUrl = item.image
         self.titleLabel.text = item.name
         self.messageLabel.text = item.message
-        self.timeLabel.text = item.time
+        self.timeLabel.text = item.time.format(to: "MMM d, h:mm a")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

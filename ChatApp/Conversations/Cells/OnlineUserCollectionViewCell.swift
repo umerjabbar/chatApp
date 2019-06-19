@@ -18,14 +18,12 @@ class OnlineUserCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
-    }
     
+    }
     
     func setup(item : OnlineUser){
         let url = URL(string: item.image)
-        self.userImageView.kf.setImage(with: url)
+        self.userImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder-profile-sq"))
         self.titleLabel.text = item.name
         self.onlineStatusView.isHidden = !item.isConnected
     }

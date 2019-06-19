@@ -15,7 +15,7 @@ import MapKit
 
 class ChatViewModel : NSObject {
     
-    var previousMessageLoadlimit : UInt = 5
+    var previousMessageLoadlimit : UInt = 100
     var previousMessageLoadRequest = false
     var previousDataReceived : Int?
     
@@ -68,28 +68,28 @@ class ChatViewModel : NSObject {
     }
     
     func onLoadEarlier() {
-        if (self.messageList.count >= self.previousMessageLoadlimit && (self.previousDataReceived ??  Int(self.previousMessageLoadlimit) >=  self.previousMessageLoadlimit) && !self.previousMessageLoadRequest) {
-            self.previousMessageLoadRequest = true
-            guard let messageId = self.messageList.first?.messageId else{return}
-            self.fireBaseRef.queryOrderedByKey().queryEnding(atValue: messageId).queryLimited(toFirst: self.previousMessageLoadlimit).observe(.value) { (snapshot) in
-                guard let value = snapshot.value as? [String : Any] else{return}
-                let values = value.map({ (key,val) -> Any in
-                    return val
-                })
-                guard let jsonArray = JSON(rawValue: values) else{return}
-                let messages = jsonArray.arrayValue.map({ Message(fromJson: $0)})
-                var myMessages = messages.map({ (message) -> MyMessage in
-                    return self.makeMyMessage(message: message)
-                })
-                myMessages.reverse()
-                myMessages.append(contentsOf: self.messageList)
-                self.messageList = myMessages
-                
-                self.delegate?.previousDataReceived()
-                
-                self.previousMessageLoadRequest = false
-            }
-        }
+//        if (self.messageList.count >= self.previousMessageLoadlimit && (self.previousDataReceived ??  Int(self.previousMessageLoadlimit) >=  self.previousMessageLoadlimit) && !self.previousMessageLoadRequest) {
+//            self.previousMessageLoadRequest = true
+//            guard let messageId = self.messageList.first?.messageId else{return}
+//            self.fireBaseRef.queryOrderedByKey().queryEnding(atValue: messageId).queryLimited(toFirst: self.previousMessageLoadlimit).observe(.value) { (snapshot) in
+//                guard let value = snapshot.value as? [String : Any] else{return}
+//                let values = value.map({ (key,val) -> Any in
+//                    return val
+//                })
+//                guard let jsonArray = JSON(rawValue: values) else{return}
+//                let messages = jsonArray.arrayValue.map({ Message(fromJson: $0)})
+//                var myMessages = messages.map({ (message) -> MyMessage in
+//                    return self.makeMyMessage(message: message)
+//                })
+//                myMessages.reverse()
+//                myMessages.append(contentsOf: self.messageList)
+//                self.messageList = myMessages
+//
+//                self.delegate?.previousDataReceived()
+//
+//                self.previousMessageLoadRequest = false
+//            }
+//        }
     }
     
     func observeNewMessage() {

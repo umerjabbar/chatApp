@@ -12,6 +12,9 @@
 		0D51C4D322B9837800F05406 /* OnlineUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D51C4D222B9837800F05406 /* OnlineUser.swift */; };
 		0D51C4D522B9847100F05406 /* ConversationProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D51C4D422B9847100F05406 /* ConversationProtocols.swift */; };
 		5D11D3759FF0886DDEF08059 /* Pods_ChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B498B98E30464DCFD2E2D92 /* Pods_ChatApp.framework */; };
+		A6609B8322BA32F4003914BF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6609B8222BA32F4003914BF /* LoginViewController.swift */; };
+		A6609B8622BA3EB5003914BF /* LoginUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6609B8522BA3EB5003914BF /* LoginUser.swift */; };
+		A6609B8822BA4415003914BF /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6609B8722BA4415003914BF /* ProgressHUD.swift */; };
 		A6F96A8622B8B7BB0025B0BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96A8522B8B7BB0025B0BD /* AppDelegate.swift */; };
 		A6F96A8822B8B7BB0025B0BD /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96A8722B8B7BB0025B0BD /* ConversationsViewController.swift */; };
 		A6F96A8B22B8B7BB0025B0BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6F96A8922B8B7BB0025B0BD /* Main.storyboard */; };
@@ -42,6 +45,9 @@
 		5B498B98E30464DCFD2E2D92 /* Pods_ChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8745DC19F7FD162D4F3A1684 /* Pods-ChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.release.xcconfig"; path = "Target Support Files/Pods-ChatApp/Pods-ChatApp.release.xcconfig"; sourceTree = "<group>"; };
 		A5830AB766C1CE6245720AD5 /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
+		A6609B8222BA32F4003914BF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		A6609B8522BA3EB5003914BF /* LoginUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUser.swift; sourceTree = "<group>"; };
+		A6609B8722BA4415003914BF /* ProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
 		A6F96A8222B8B7BB0025B0BD /* ChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6F96A8522B8B7BB0025B0BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6F96A8722B8B7BB0025B0BD /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +112,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		A6609B8422BA3EA7003914BF /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				A6609B8222BA32F4003914BF /* LoginViewController.swift */,
+				A6609B8522BA3EB5003914BF /* LoginUser.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		A6F96A7922B8B7BB0025B0BD = {
 			isa = PBXGroup;
 			children = (
@@ -133,11 +148,13 @@
 				A6F96AA022B8DA7C0025B0BD /* Chat */,
 				A6F96A9B22B8CC680025B0BD /* Conversations */,
 				0D36C93A22B98D0900F4F984 /* OnlineUsersViewController.swift */,
+				A6609B8422BA3EA7003914BF /* Login */,
 				A6F96A8922B8B7BB0025B0BD /* Main.storyboard */,
 				A6F96A9722B8BB360025B0BD /* GoogleService-Info.plist */,
 				A6F96A9122B8B7BC0025B0BD /* Info.plist */,
 				A6F96A8C22B8B7BC0025B0BD /* Assets.xcassets */,
 				A6F96A8E22B8B7BC0025B0BD /* LaunchScreen.storyboard */,
+				A6609B8722BA4415003914BF /* ProgressHUD.swift */,
 			);
 			path = ChatApp;
 			sourceTree = "<group>";
@@ -309,15 +326,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6609B8322BA32F4003914BF /* LoginViewController.swift in Sources */,
 				A6F96AA422B8DA9B0025B0BD /* ChatViewController.swift in Sources */,
 				A6F96AB722B912A80025B0BD /* ConversationsViewModel.swift in Sources */,
 				A6F96AAD22B8DFBC0025B0BD /* Date+Extension.swift in Sources */,
 				A6F96A8822B8B7BB0025B0BD /* ConversationsViewController.swift in Sources */,
 				0D36C93B22B98D0900F4F984 /* OnlineUsersViewController.swift in Sources */,
 				A6F96AB122B8E28F0025B0BD /* MessageHead.swift in Sources */,
+				A6609B8822BA4415003914BF /* ProgressHUD.swift in Sources */,
 				A6F96AB322B8ECC60025B0BD /* ChatViewModel.swift in Sources */,
 				A6F96A9A22B8C1C50025B0BD /* View+Extension.swift in Sources */,
 				A6F96A8622B8B7BB0025B0BD /* AppDelegate.swift in Sources */,
+				A6609B8622BA3EB5003914BF /* LoginUser.swift in Sources */,
 				A6F96A9F22B8CC970025B0BD /* OnlineUserCollectionViewCell.swift in Sources */,
 				A6F96AA622B8DCC30025B0BD /* Message.swift in Sources */,
 				A6F96AB522B8F7520025B0BD /* ChatProtocols.swift in Sources */,
@@ -476,14 +496,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4VV4N2AF9L;
+				DEVELOPMENT_TEAM = D72YU8FCS8;
 				INFOPLIST_FILE = ChatApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.demo.ChatApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.demo.ChatApp123;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -496,14 +516,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4VV4N2AF9L;
+				DEVELOPMENT_TEAM = D72YU8FCS8;
 				INFOPLIST_FILE = ChatApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.demo.ChatApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.demo.ChatApp123;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

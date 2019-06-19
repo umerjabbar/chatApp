@@ -15,6 +15,8 @@ class ConversationsViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var onlineUserWarningLabel: UILabel!
+    @IBOutlet weak var messageHeadWarningLabel: UILabel!
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -42,12 +44,22 @@ class ConversationsViewController: UIViewController {
         self.present(vc, animated: true, completion: nil)
     }
     
+    @IBAction func logoutButtonAction(_ sender: Any) {
+        UserDefaults.standard.removeObject(forKey: "loggedUserId")
+        UserDefaults.standard.removeObject(forKey: "loggedUserName")
+        UserDefaults.standard.removeObject(forKey: "loggedUserImage")
+    }
+    
+    
 }
 
 
 extension ConversationsViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        self.onlineUserWarningLabel.isHidden = !self.viewModel.onlineUsers.isEmpty
+        
         return self.viewModel.onlineUsers.count
     }
     
@@ -65,6 +77,9 @@ extension ConversationsViewController : UICollectionViewDataSource {
 extension ConversationsViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        self.messageHeadWarningLabel.isHidden = !self.viewModel.messageHeads.isEmpty
+        
         return self.viewModel.messageHeads.count
     }
     
@@ -90,7 +105,7 @@ extension ConversationsViewController : UICollectionViewDelegate {
         
         let user = self.viewModel.onlineUsers[indexPath.item]
         let ind = self.viewModel.messageHeads.firstIndex { (head) -> Bool in
-            return head.id == user.id
+            return head.otherUser == user.id
         }
         if let index = ind {
             let item = self.viewModel.messageHeads[index]

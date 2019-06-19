@@ -122,7 +122,7 @@ extension UIImageView {
         }
         set {
             let url = URL(string: newValue)
-            self.kf.setImage(with: url)
+            self.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder-profile-sq"))
         }
     }
     

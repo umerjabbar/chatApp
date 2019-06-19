@@ -15,6 +15,9 @@ class OnlineUsersViewController: UIViewController {
     
     var viewModel = ConversationsViewModel()
     
+    var topSafeArea: CGFloat = 0.0
+    var bottomSafeArea: CGFloat = 0.0
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
@@ -25,7 +28,13 @@ class OnlineUsersViewController: UIViewController {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         
-//        self.viewModel.delegate = self
+        if #available(iOS 11.0, *) {
+            topSafeArea = view.safeAreaInsets.top
+            bottomSafeArea = view.safeAreaInsets.bottom
+        } else {
+            topSafeArea = topLayoutGuide.length
+            bottomSafeArea = bottomLayoutGuide.length
+        }
         
     }
     
@@ -35,8 +44,8 @@ class OnlineUsersViewController: UIViewController {
     }
     
     func openWide(){
-        UIView.animate(withDuration: 800) {
-            self.viewHeightConstraint.constant = self.view.frame.height
+        UIView.animate(withDuration: 200) {
+            self.viewHeightConstraint.constant = self.view.frame.height - self.topSafeArea - self.bottomSafeArea - 70
             if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
                 layout.scrollDirection = .vertical
             }
@@ -44,7 +53,7 @@ class OnlineUsersViewController: UIViewController {
     }
     
     func closeWide(){
-        UIView.animate(withDuration: 800, animations: {
+        UIView.animate(withDuration: 200, animations: {
             self.viewHeightConstraint.constant = 117
             if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
                 layout.scrollDirection = .horizontal

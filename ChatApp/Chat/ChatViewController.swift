@@ -349,7 +349,7 @@ extension ChatViewController: MessagesDisplayDelegate {
 //
 //                }
 //                imageView.setImage(withURL: url, placeholderImage: placeholderImage, imageTransition: UIImageView.ImageTransition.crossDissolve(0.2), runImageTransitionIfCached: true)
-                imageView.kf.setImage(with: url)
+                imageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder-profile-sq"))
                 imageView.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                 imageView.layer.borderWidth = 1
             }
