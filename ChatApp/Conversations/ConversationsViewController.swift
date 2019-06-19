@@ -35,6 +35,11 @@ class ConversationsViewController: UIViewController {
         self.viewModel.getMessageHeads()
         self.viewModel.offlineFunction()
         
+        //PeekPop
+        if traitCollection.forceTouchCapability == UIForceTouchCapability.available {
+            registerForPreviewing(with: self, sourceView: self.view)
+        }
+        
     }
     
     @IBAction func viewAllButtonAction(_ sender: Any) {
@@ -46,8 +51,12 @@ class ConversationsViewController: UIViewController {
     
     @IBAction func logoutButtonAction(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "loggedUserId")
-        UserDefaults.standard.removeObject(forKey: "loggedUserName")
-        UserDefaults.standard.removeObject(forKey: "loggedUserImage")
+        if UserDefaults.standard.string(forKey: "loggedUserName") != nil  {
+            UserDefaults.standard.removeObject(forKey: "loggedUserName")
+        }
+        if UserDefaults.standard.string(forKey: "loggedUserImage") != nil  {
+            UserDefaults.standard.removeObject(forKey: "loggedUserImage")
+        }
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         (UIApplication.shared.delegate)!.window??.rootViewController = vc
@@ -106,26 +115,28 @@ extension ConversationsViewController : UICollectionViewDelegate {
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
         
-        let user = self.viewModel.onlineUsers[indexPath.item]
-        let ind = self.viewModel.messageHeads.firstIndex { (head) -> Bool in
-            return head.otherUser == user.id
-        }
-        if let index = ind {
-            let item = self.viewModel.messageHeads[index]
-            vc.viewModel.item = item
-            vc.viewModel.chatType = "individual"
-        }else{
-            let item = MessageHead()
-            item.id = user.id
-            item.name = user.name
-            item.image = user.image
-            item.message = ""
-            item.otherUser = ""
-            item.time = ""
-            vc.viewModel.item = item
-            vc.viewModel.chatType = "new"
-        }
-
+                let user = self.viewModel.onlineUsers[indexPath.item]
+        //        let ind = self.viewModel.messageHeads.firstIndex { (head) -> Bool in
+        //            return head.otherUser == user.id
+        //        }
+        //        if let index = ind {
+        //            let item = self.viewModel.messageHeads[index]
+        //            vc.viewModel.item = item
+        //            vc.viewModel.chatType = "individual"
+        //        }else{
+        let item = MessageHead()
+        item.id = user.id
+        item.name = user.name
+        item.image = user.image
+        item.message = ""
+        item.otherUser = ""
+        item.time = ""
+        item.chatType = "individual"
+        
+        vc.viewModel.item = item
+        vc.viewModel.chatType = "individual"
+        //        }
+        
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -139,7 +150,7 @@ extension ConversationsViewController : UITableViewDelegate {
         //        self.present(nav, animated: true, completion: nil)
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-        vc.viewModel.chatType = "individual"
+        vc.viewModel.chatType = self.viewModel.messageHeads[indexPath.row].chatType ?? "group"
         vc.viewModel.item = self.viewModel.messageHeads[indexPath.row]
         self.present(vc, animated: true, completion: nil)
         
@@ -159,5 +170,25 @@ extension ConversationsViewController : ConversationsResponseDelegate {
         self.tableView.contentOffset = offset
         
     }
+    
+}
+
+extension ConversationsViewController : UIViewControllerPreviewingDelegate {
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
+        previewingContext.sourceRect = view.frame
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+        return vc
+        
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+        self.present(vc, animated: true, completion: nil)
+        
+    }
+    
     
 }

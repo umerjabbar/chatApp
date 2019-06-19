@@ -1,5 +1,5 @@
 //
-//  MessageHead.swift
+//  User.swift
 //  ChatApp
 //
 //  Created by MacAir on 18/06/2019.
@@ -9,21 +9,17 @@
 import Foundation
 import SwiftyJSON
 
-
-class MessageHead : NSObject, NSCoding{
+class MyUser: NSObject, NSCoding{
     
     var id : String!
-    var image : String!
-    var message : String!
     var name : String!
-    var otherUser : String!
-    var time : String!
-    var chatType: String!
+    var image : String!
     
     /**
      * Instantiate the instance using the passed json values to set the properties values
      */
-    override init(){
+    
+    override init() {
         super.init()
     }
     
@@ -34,11 +30,7 @@ class MessageHead : NSObject, NSCoding{
         }
         id = json["id"].stringValue
         image = json["image"].stringValue
-        message = json["message"].stringValue
         name = json["name"].stringValue
-        otherUser = json["otherUser"].stringValue
-        time = json["time"].stringValue
-        chatType = json["chatType"].stringValue
     }
     
     /**
@@ -53,20 +45,8 @@ class MessageHead : NSObject, NSCoding{
         if image != nil{
             dictionary["image"] = image
         }
-        if message != nil{
-            dictionary["message"] = message
-        }
         if name != nil{
             dictionary["name"] = name
-        }
-        if otherUser != nil{
-            dictionary["otherUser"] = otherUser
-        }
-        if time != nil{
-            dictionary["time"] = time
-        }
-        if chatType != nil{
-            dictionary["chatType"] = chatType
         }
         return dictionary
     }
@@ -79,11 +59,7 @@ class MessageHead : NSObject, NSCoding{
     {
         id = aDecoder.decodeObject(forKey: "id") as? String
         image = aDecoder.decodeObject(forKey: "image") as? String
-        message = aDecoder.decodeObject(forKey: "message") as? String
         name = aDecoder.decodeObject(forKey: "name") as? String
-        otherUser = aDecoder.decodeObject(forKey: "otherUser") as? String
-        time = aDecoder.decodeObject(forKey: "time") as? String
-        chatType = aDecoder.decodeObject(forKey: "chatType") as? String
         
     }
     
@@ -99,20 +75,8 @@ class MessageHead : NSObject, NSCoding{
         if image != nil{
             aCoder.encode(image, forKey: "image")
         }
-        if message != nil{
-            aCoder.encode(message, forKey: "message")
-        }
         if name != nil{
             aCoder.encode(name, forKey: "name")
-        }
-        if otherUser != nil{
-            aCoder.encode(otherUser, forKey: "otherUser")
-        }
-        if time != nil{
-            aCoder.encode(time, forKey: "time")
-        }
-        if chatType != nil{
-            aCoder.encode(chatType, forKey: "chatType")
         }
         
     }

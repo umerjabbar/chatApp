@@ -23,13 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Database.database().isPersistenceEnabled = true
         
         guard let id = UserDefaults.standard.string(forKey: "loggedUserId") else{return true}
-        guard let name = UserDefaults.standard.string(forKey: "loggedUserName") else{return true}
-        guard let image = UserDefaults.standard.string(forKey: "loggedUserImage") else{return true}
-        
         AppStateManager.shared.id = id
-        AppStateManager.shared.name = name
-        AppStateManager.shared.image = image
-        
+        if let name = UserDefaults.standard.string(forKey: "loggedUserName")  {
+            AppStateManager.shared.name = name
+        }
+        if let image = UserDefaults.standard.string(forKey: "loggedUserImage")  {
+            AppStateManager.shared.image = image
+        }
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = mainStoryboard.instantiateViewController(withIdentifier: "ConversationsViewController")
         self.window?.rootViewController = vc

@@ -19,9 +19,9 @@ class ChatViewModel : NSObject {
     var previousMessageLoadRequest = false
     var previousDataReceived : Int?
     
-    var currentUser : User {
+    var currentUser : MyUser {
         get {
-            let user = User()
+            let user = MyUser()
             user.id = AppStateManager.shared.id
             user.name = AppStateManager.shared.name
             user.image = AppStateManager.shared.image
@@ -31,18 +31,16 @@ class ChatViewModel : NSObject {
     var item : MessageHead!
     var chatType = "group"
     var messageList = [MyMessage]()
+    var users = [MyUser]()
     
     
     let reference = Database.database().reference()
     var fireBaseRef = Database.database().reference().child("Chat/sample/messages");
+    var fireBaseRef2 = Database.database().reference().child("Chat/sample/messages");
     var fireBaseRefData = Database.database().reference().child("Chat/sample/data");
+    var fireBaseRefData2 = Database.database().reference().child("Chat/sample/data");
     
     weak var delegate : ChatResponseDelegate?
-    
-    func getUsers() {
-//        var array = [User]()
-        
-    }
     
     func setup(){
         if self.item == nil {
@@ -50,47 +48,60 @@ class ChatViewModel : NSObject {
             head.id = "sample"
             head.name = "Sample"
             head.image = "http://www.holosgen.com/wp-content/uploads/2018/12/1416428226Image-Placeholder-1416428226-7e2acf81995ad78a094f834d00a.jpg"
+            head.chatType = "group"
             self.item = head
             self.chatType = "group"
         }
         
         
-        if self.chatType == "new" {
-            self.fireBaseRef = self.reference.child("Chat/\(self.item.id!)_\(self.currentUser.id)/messages")
-            self.fireBaseRefData = self.reference.child("Chat/\(self.item.id!)_\(self.currentUser.id)/data")
-        }else if self.chatType == "individual" {
-            self.fireBaseRef = self.reference.child("Chat/\(self.item.id!)/messages")
-            self.fireBaseRefData = self.reference.child("Chat/\(self.item.id!)/data")
+        if self.chatType == "individual" {
+            self.fireBaseRef = self.reference.child("Chat/\(self.item.id!)/\(self.currentUser.id!)/messages")
+            self.fireBaseRef2 = self.reference.child("Chat/\(self.currentUser.id!)/\(self.item.id!)/messages")
+            self.fireBaseRefData = self.reference.child("Chat/\(self.item.id!)/\(self.currentUser.id!)/data")
+            self.fireBaseRefData2 = self.reference.child("Chat/\(self.currentUser.id!)/\(self.item.id!)/data")
         }else if self.chatType == "group" {
             self.fireBaseRef = self.reference.child("Chat/\(self.item.id!)/messages")
             self.fireBaseRefData = self.reference.child("Chat/\(self.item.id!)/data")
         }
     }
     
-    func onLoadEarlier() {
-//        if (self.messageList.count >= self.previousMessageLoadlimit && (self.previousDataReceived ??  Int(self.previousMessageLoadlimit) >=  self.previousMessageLoadlimit) && !self.previousMessageLoadRequest) {
-//            self.previousMessageLoadRequest = true
-//            guard let messageId = self.messageList.first?.messageId else{return}
-//            self.fireBaseRef.queryOrderedByKey().queryEnding(atValue: messageId).queryLimited(toFirst: self.previousMessageLoadlimit).observe(.value) { (snapshot) in
-//                guard let value = snapshot.value as? [String : Any] else{return}
-//                let values = value.map({ (key,val) -> Any in
-//                    return val
-//                })
-//                guard let jsonArray = JSON(rawValue: values) else{return}
-//                let messages = jsonArray.arrayValue.map({ Message(fromJson: $0)})
-//                var myMessages = messages.map({ (message) -> MyMessage in
-//                    return self.makeMyMessage(message: message)
-//                })
-//                myMessages.reverse()
-//                myMessages.append(contentsOf: self.messageList)
-//                self.messageList = myMessages
-//
-//                self.delegate?.previousDataReceived()
-//
-//                self.previousMessageLoadRequest = false
-//            }
-//        }
+    func getUsers() {
+        self.fireBaseRefData.child("users").observeSingleEvent(of: .value) { (snapshot) in
+            guard let value = snapshot.value as? [String : Any] else{return}
+            let values = value.map({ (key,val) -> Any in
+                return val
+            })
+            guard let jsonArray = JSON(rawValue: values) else{return}
+            self.users = jsonArray.arrayValue.map({ MyUser(fromJson: $0)})
+        }
+        
     }
+    
+    func onLoadEarlier() {
+        if (self.messageList.count >= self.previousMessageLoadlimit && (self.previousDataReceived ??  Int(self.previousMessageLoadlimit) >=  self.previousMessageLoadlimit) && !self.previousMessageLoadRequest) {
+            self.previousMessageLoadRequest = true
+            guard let messageId = self.messageList.first?.messageId else{return}
+            self.fireBaseRef.queryOrderedByKey().queryEnding(atValue: messageId).queryLimited(toFirst: self.previousMessageLoadlimit).observe(.value) { (snapshot) in
+                guard let value = snapshot.value as? [String : Any] else{return}
+                let values = value.map({ (key,val) -> Any in
+                    return val
+                })
+                guard let jsonArray = JSON(rawValue: values) else{return}
+                let messages = jsonArray.arrayValue.map({ Message(fromJson: $0)})
+                var myMessages = messages.map({ (message) -> MyMessage in
+                    return self.makeMyMessage(message: message)
+                })
+                myMessages.reverse()
+                myMessages.append(contentsOf: self.messageList)
+                self.messageList = myMessages
+
+                self.delegate?.previousDataReceived()
+
+                self.previousMessageLoadRequest = false
+            }
+        }
+    }
+    
     
     func observeNewMessage() {
         self.fireBaseRef.queryLimited(toLast: self.previousMessageLoadlimit).observe(.childAdded) { (snapshot) in
@@ -113,10 +124,21 @@ class ChatViewModel : NSObject {
         message.type = type
         message.isRead = false
         message.isDelivered = true
-        self.fireBaseRef.child(key).setValue(message.toDictionary(), withCompletionBlock: { (error, ref) in
-            //            self.notifyUser(message: message, currentOrder: currentOrder)
-            self.delegate?.messageSent()
-        })
+        if self.chatType == "individual" {
+            self.fireBaseRef.child(key).setValue(message.toDictionary(), withCompletionBlock: { (error, ref) in
+                //            self.notifyUser(message: message, currentOrder: currentOrder)
+                self.delegate?.messageSent()
+            })
+            self.fireBaseRef2.child(key).setValue(message.toDictionary(), withCompletionBlock: { (error, ref) in
+                //            self.notifyUser(message: message, currentOrder: currentOrder)
+                self.delegate?.messageSent()
+            })
+        }else if self.chatType == "group"{
+            self.fireBaseRef.child(key).setValue(message.toDictionary(), withCompletionBlock: { (error, ref) in
+                //            self.notifyUser(message: message, currentOrder: currentOrder)
+                self.delegate?.messageSent()
+            })
+        }
         
         switch type {
         case 1:
@@ -135,51 +157,47 @@ class ChatViewModel : NSObject {
     
     func makeChatHeads(message: String){
         
-        if self.chatType == "new" {
-            Database.database().reference().child("Users/\(self.item.id!)/ChatHeads/\(self.item.id!)_\(self.currentUser.id)").setValue(
+        if self.chatType == "individual" {
+            Database.database().reference().child("Users/\(self.item.id!)/ChatHeads/\(self.currentUser.id!)").setValue(
                 [
-                    "id" : "\(self.item.id!)_\(self.currentUser.id)",
-                    "name" : "\(self.currentUser.name)",
-                    "image" : "\(self.currentUser.image)",
-                    "message" : "\(message)",
-                    "time" : "\(Date().getString())",
-                    "otherUser" : "\(self.currentUser.id)",
-                ]
-            )
-            Database.database().reference().child("Users/\(self.currentUser.id)/ChatHeads/\(self.item.id!)_\(self.currentUser.id)").setValue(
-                [
-                    "id" : "\(self.item.id!)_\(self.currentUser.id)",
-                    "name" : "\(self.item.name!)",
-                    "image" : "\(self.item.image!)",
+                    "id" : "\(self.currentUser.id!)",
+                    "name" : "\(self.currentUser.name!)",
+                    "image" : "\(self.currentUser.image!)",
                     "message" : "\(message)",
                     "time" : "\(Date().getString())",
                     "otherUser" : "\(self.item.id!)",
+                    "chatType" : "individual",
                 ]
             )
-        }
-        else if self.chatType == "individual" {
-            Database.database().reference().child("Users/\(self.item.otherUser!)/ChatHeads/\(self.item.id!)").setValue(
-                [
-                    "id" : "\(self.item.id!)",
-                    "name" : "\(self.currentUser.name)",
-                    "image" : "\(self.currentUser.image)",
-                    "message" : "\(message)",
-                    "time" : "\(Date().getString())",
-                    "otherUser" : "\(self.currentUser.id)",
-                ]
-            )
-            Database.database().reference().child("Users/\(self.currentUser.id)/ChatHeads/\(self.item.id!)").setValue(
+            Database.database().reference().child("Users/\(self.currentUser.id!)/ChatHeads/\(self.item.id!)").setValue(
                 [
                     "id" : "\(self.item.id!)",
                     "name" : "\(self.item.name!)",
                     "image" : "\(self.item.image!)",
                     "message" : "\(message)",
                     "time" : "\(Date().getString())",
-                    "otherUser" : "\(self.item.otherUser!)",
+                    "otherUser" : "\(self.currentUser.id!)",
+                    "chatType" : "individual",
                 ]
             )
         }
         
+    }
+    
+    func makeGroupChatHeads(message: String){
+        self.users.forEach { (user) in
+            Database.database().reference().child("Users/\(user.id!)/ChatHeads/\(self.item.id!)").setValue(
+                [
+                    "id" : "\(self.item.id!)",
+                    "name" : "\(self.item.name!)",
+                    "image" : "\(self.item.image!)",
+                    "message" : "\(message)",
+                    "time" : "\(Date().getString())",
+                    "otherUser" : "\(user.id!)",
+                    "chatType" : "individual",
+                ]
+            )
+        }
     }
     
     

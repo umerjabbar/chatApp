@@ -15,12 +15,13 @@
 		A6609B8322BA32F4003914BF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6609B8222BA32F4003914BF /* LoginViewController.swift */; };
 		A6609B8622BA3EB5003914BF /* LoginUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6609B8522BA3EB5003914BF /* LoginUser.swift */; };
 		A6609B8822BA4415003914BF /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6609B8722BA4415003914BF /* ProgressHUD.swift */; };
+		A6609B8A22BA5B74003914BF /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6609B8922BA5B74003914BF /* LoginViewModel.swift */; };
+		A6609B8C22BA648F003914BF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6609B8B22BA648F003914BF /* GoogleService-Info.plist */; };
 		A6F96A8622B8B7BB0025B0BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96A8522B8B7BB0025B0BD /* AppDelegate.swift */; };
 		A6F96A8822B8B7BB0025B0BD /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96A8722B8B7BB0025B0BD /* ConversationsViewController.swift */; };
 		A6F96A8B22B8B7BB0025B0BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6F96A8922B8B7BB0025B0BD /* Main.storyboard */; };
 		A6F96A8D22B8B7BC0025B0BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6F96A8C22B8B7BC0025B0BD /* Assets.xcassets */; };
 		A6F96A9022B8B7BC0025B0BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6F96A8E22B8B7BC0025B0BD /* LaunchScreen.storyboard */; };
-		A6F96A9822B8BB360025B0BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6F96A9722B8BB360025B0BD /* GoogleService-Info.plist */; };
 		A6F96A9A22B8C1C50025B0BD /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96A9922B8C1C50025B0BD /* View+Extension.swift */; };
 		A6F96A9D22B8CC810025B0BD /* MessageHeadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96A9C22B8CC810025B0BD /* MessageHeadTableViewCell.swift */; };
 		A6F96A9F22B8CC970025B0BD /* OnlineUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96A9E22B8CC970025B0BD /* OnlineUserCollectionViewCell.swift */; };
@@ -30,7 +31,7 @@
 		A6F96AA922B8DD2F0025B0BD /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96AA822B8DD2F0025B0BD /* String+Extension.swift */; };
 		A6F96AAB22B8DE370025B0BD /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96AAA22B8DE370025B0BD /* AppStateManager.swift */; };
 		A6F96AAD22B8DFBC0025B0BD /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96AAC22B8DFBC0025B0BD /* Date+Extension.swift */; };
-		A6F96AAF22B8E1ED0025B0BD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96AAE22B8E1ED0025B0BD /* User.swift */; };
+		A6F96AAF22B8E1ED0025B0BD /* MyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96AAE22B8E1ED0025B0BD /* MyUser.swift */; };
 		A6F96AB122B8E28F0025B0BD /* MessageHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96AB022B8E28F0025B0BD /* MessageHead.swift */; };
 		A6F96AB322B8ECC60025B0BD /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96AB222B8ECC60025B0BD /* ChatViewModel.swift */; };
 		A6F96AB522B8F7520025B0BD /* ChatProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96AB422B8F7520025B0BD /* ChatProtocols.swift */; };
@@ -48,6 +49,8 @@
 		A6609B8222BA32F4003914BF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A6609B8522BA3EB5003914BF /* LoginUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUser.swift; sourceTree = "<group>"; };
 		A6609B8722BA4415003914BF /* ProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
+		A6609B8922BA5B74003914BF /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		A6609B8B22BA648F003914BF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A6F96A8222B8B7BB0025B0BD /* ChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6F96A8522B8B7BB0025B0BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6F96A8722B8B7BB0025B0BD /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
@@ -55,7 +58,6 @@
 		A6F96A8C22B8B7BC0025B0BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A6F96A8F22B8B7BC0025B0BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A6F96A9122B8B7BC0025B0BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A6F96A9722B8BB360025B0BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A6F96A9922B8C1C50025B0BD /* View+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		A6F96A9C22B8CC810025B0BD /* MessageHeadTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHeadTableViewCell.swift; sourceTree = "<group>"; };
 		A6F96A9E22B8CC970025B0BD /* OnlineUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineUserCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -65,7 +67,7 @@
 		A6F96AA822B8DD2F0025B0BD /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		A6F96AAA22B8DE370025B0BD /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		A6F96AAC22B8DFBC0025B0BD /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		A6F96AAE22B8E1ED0025B0BD /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		A6F96AAE22B8E1ED0025B0BD /* MyUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUser.swift; sourceTree = "<group>"; };
 		A6F96AB022B8E28F0025B0BD /* MessageHead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHead.swift; sourceTree = "<group>"; };
 		A6F96AB222B8ECC60025B0BD /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		A6F96AB422B8F7520025B0BD /* ChatProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatProtocols.swift; sourceTree = "<group>"; };
@@ -87,7 +89,7 @@
 		0D51C4D622B9848700F05406 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A6F96AAE22B8E1ED0025B0BD /* User.swift */,
+				A6F96AAE22B8E1ED0025B0BD /* MyUser.swift */,
 				A6F96AB022B8E28F0025B0BD /* MessageHead.swift */,
 				0D51C4D222B9837800F05406 /* OnlineUser.swift */,
 			);
@@ -117,6 +119,7 @@
 			children = (
 				A6609B8222BA32F4003914BF /* LoginViewController.swift */,
 				A6609B8522BA3EB5003914BF /* LoginUser.swift */,
+				A6609B8922BA5B74003914BF /* LoginViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -150,7 +153,7 @@
 				0D36C93A22B98D0900F4F984 /* OnlineUsersViewController.swift */,
 				A6609B8422BA3EA7003914BF /* Login */,
 				A6F96A8922B8B7BB0025B0BD /* Main.storyboard */,
-				A6F96A9722B8BB360025B0BD /* GoogleService-Info.plist */,
+				A6609B8B22BA648F003914BF /* GoogleService-Info.plist */,
 				A6F96A9122B8B7BC0025B0BD /* Info.plist */,
 				A6F96A8C22B8B7BC0025B0BD /* Assets.xcassets */,
 				A6F96A8E22B8B7BC0025B0BD /* LaunchScreen.storyboard */,
@@ -271,7 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6F96A9022B8B7BC0025B0BD /* LaunchScreen.storyboard in Resources */,
-				A6F96A9822B8BB360025B0BD /* GoogleService-Info.plist in Resources */,
+				A6609B8C22BA648F003914BF /* GoogleService-Info.plist in Resources */,
 				A6F96A8D22B8B7BC0025B0BD /* Assets.xcassets in Resources */,
 				A6F96A8B22B8B7BB0025B0BD /* Main.storyboard in Resources */,
 			);
@@ -342,10 +345,11 @@
 				A6F96AA622B8DCC30025B0BD /* Message.swift in Sources */,
 				A6F96AB522B8F7520025B0BD /* ChatProtocols.swift in Sources */,
 				A6F96A9D22B8CC810025B0BD /* MessageHeadTableViewCell.swift in Sources */,
-				A6F96AAF22B8E1ED0025B0BD /* User.swift in Sources */,
+				A6F96AAF22B8E1ED0025B0BD /* MyUser.swift in Sources */,
 				0D51C4D122B97A4400F05406 /* ViewController+Extension.swift in Sources */,
 				0D51C4D522B9847100F05406 /* ConversationProtocols.swift in Sources */,
 				A6F96AA922B8DD2F0025B0BD /* String+Extension.swift in Sources */,
+				A6609B8A22BA5B74003914BF /* LoginViewModel.swift in Sources */,
 				0D51C4D322B9837800F05406 /* OnlineUser.swift in Sources */,
 				A6F96AA322B8DA9B0025B0BD /* MyMessage.swift in Sources */,
 				A6F96AAB22B8DE370025B0BD /* AppStateManager.swift in Sources */,

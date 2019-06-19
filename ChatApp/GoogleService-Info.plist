@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>959336111842-gt67artm909t9l8q473t2d5m192oqu3a.apps.googleusercontent.com</string>
+	<string>384466267505-pepakihineuunfqjvg9451vtlh4vb7ls.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.959336111842-gt67artm909t9l8q473t2d5m192oqu3a</string>
+	<string>com.googleusercontent.apps.384466267505-pepakihineuunfqjvg9451vtlh4vb7ls</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBIPv8hhxdgWK8PEn0VVjPPzXrbnjk3oMU</string>
+	<string>AIzaSyCfBkUc-pRX9z1eYDcFohOt9BUaOiL-NBM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>959336111842</string>
+	<string>384466267505</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.zotionapps.ChatApp</string>
+	<string>com.demo.ChatApp</string>
 	<key>PROJECT_ID</key>
-	<string>snapchat-d994d</string>
+	<string>learning-9de56</string>
 	<key>STORAGE_BUCKET</key>
-	<string>snapchat-d994d.appspot.com</string>
+	<string>learning-9de56.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:959336111842:ios:c2a1c59d6292a4cb</string>
+	<string>1:384466267505:ios:c0b04c74f494067c</string>
 	<key>DATABASE_URL</key>
-	<string>https://snapchat-d994d.firebaseio.com</string>
+	<string>https://learning-9de56.firebaseio.com</string>
 </dict>
 </plist>

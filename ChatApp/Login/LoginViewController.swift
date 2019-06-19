@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
@@ -47,37 +48,17 @@ class LoginViewController: UIViewController {
         
         self.view.addSubview(self.progressHUD)
         
-        let urlParams = [
-            "username":email,
-            "passwrod":password,
-        ]
-        
-        // Fetch Request
-        Alamofire.request("https://bikeboerse.com/BikeApi/ios/user/userlogin.php", method: .get, parameters: urlParams)
-            .validate(statusCode: 200..<300)
-            .responseJSON { response in
-                self.progressHUD.removeFromSuperview()
-                if (response.result.error == nil) {
-                    guard let array = response.result.value as? [Any] else {return}
-                    guard let value = array.first as? [String : Any] else {return}
-                    guard let json = JSON(rawValue: value) else{return}
-                    let loggedInUser = LoginUser(fromJson: json)
-                    AppStateManager.shared.id = loggedInUser.id
-                    AppStateManager.shared.name = loggedInUser.name
-                    AppStateManager.shared.image = loggedInUser.picture
-                    
-                    UserDefaults.standard.set(loggedInUser.id, forKey: "loggedUserId")
-                    UserDefaults.standard.set(loggedInUser.name, forKey: "loggedUserName")
-                    UserDefaults.standard.set(loggedInUser.picture, forKey: "loggedUserImage")
-                    
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "ConversationsViewController") as! ConversationsViewController
-                    self.present(vc, animated: true, completion: nil)
-                    
-                }
-                else {
-                    
-                }
-                
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
+            guard self != nil else { return }
+            self?.progressHUD.removeFromSuperview()
+            guard error == nil else{return}
+            guard let tempuser = user?.user else{return}
+            AppStateManager.shared.id = tempuser.uid
+            UserDefaults.standard.set(tempuser.uid, forKey: "loggedUserId")
+            
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = mainStoryboard.instantiateViewController(withIdentifier: "ConversationsViewController")
+            self?.present(vc, animated: true, completion: nil)
         }
         
     }
