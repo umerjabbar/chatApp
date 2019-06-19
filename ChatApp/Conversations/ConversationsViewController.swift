@@ -48,6 +48,9 @@ class ConversationsViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "loggedUserId")
         UserDefaults.standard.removeObject(forKey: "loggedUserName")
         UserDefaults.standard.removeObject(forKey: "loggedUserImage")
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        (UIApplication.shared.delegate)!.window??.rootViewController = vc
     }
     
     

@@ -9,6 +9,7 @@ target 'ChatApp' do
   
   pod 'Alamofire'
   pod 'DTPhotoViewerController'
+  pod 'Firebase/Auth'
   pod 'Firebase/Core'
   pod 'Firebase/Storage'
   pod 'Firebase/Database'
@@ -25,6 +26,7 @@ target 'ChatApp' do
   pod 'IQMediaPickerController'
   pod 'Gallery'
   pod 'Lightbox'
+  
   
   
 end
