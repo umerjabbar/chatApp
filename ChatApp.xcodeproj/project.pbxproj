@@ -17,6 +17,9 @@
 		A6609B8822BA4415003914BF /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6609B8722BA4415003914BF /* ProgressHUD.swift */; };
 		A6609B8A22BA5B74003914BF /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6609B8922BA5B74003914BF /* LoginViewModel.swift */; };
 		A6609B8C22BA648F003914BF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6609B8B22BA648F003914BF /* GoogleService-Info.plist */; };
+		A69051B122BCD4F80091B45D /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69051B022BCD4F80091B45D /* CreateGroupViewController.swift */; };
+		A69051B322BCF37F0091B45D /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69051B222BCF37F0091B45D /* UsersViewController.swift */; };
+		A69051B522BD0F8D0091B45D /* UsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69051B422BD0F8D0091B45D /* UsersTableViewCell.swift */; };
 		A6F96A8622B8B7BB0025B0BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96A8522B8B7BB0025B0BD /* AppDelegate.swift */; };
 		A6F96A8822B8B7BB0025B0BD /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F96A8722B8B7BB0025B0BD /* ConversationsViewController.swift */; };
 		A6F96A8B22B8B7BB0025B0BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6F96A8922B8B7BB0025B0BD /* Main.storyboard */; };
@@ -51,6 +54,9 @@
 		A6609B8722BA4415003914BF /* ProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
 		A6609B8922BA5B74003914BF /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		A6609B8B22BA648F003914BF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A69051B022BCD4F80091B45D /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
+		A69051B222BCF37F0091B45D /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
+		A69051B422BD0F8D0091B45D /* UsersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewCell.swift; sourceTree = "<group>"; };
 		A6F96A8222B8B7BB0025B0BD /* ChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6F96A8522B8B7BB0025B0BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6F96A8722B8B7BB0025B0BD /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +130,36 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		A69051AD22BCD4290091B45D /* Online Users */ = {
+			isa = PBXGroup;
+			children = (
+				0D36C93A22B98D0900F4F984 /* OnlineUsersViewController.swift */,
+			);
+			path = "Online Users";
+			sourceTree = "<group>";
+		};
+		A69051AE22BCD4610091B45D /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A69051AF22BCD4700091B45D /* Create Group */,
+				A6609B8422BA3EA7003914BF /* Login */,
+				A6F96AA022B8DA7C0025B0BD /* Chat */,
+				A6F96A9B22B8CC680025B0BD /* Conversations */,
+				A69051AD22BCD4290091B45D /* Online Users */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		A69051AF22BCD4700091B45D /* Create Group */ = {
+			isa = PBXGroup;
+			children = (
+				A69051B022BCD4F80091B45D /* CreateGroupViewController.swift */,
+				A69051B222BCF37F0091B45D /* UsersViewController.swift */,
+				A69051B422BD0F8D0091B45D /* UsersTableViewCell.swift */,
+			);
+			path = "Create Group";
+			sourceTree = "<group>";
+		};
 		A6F96A7922B8B7BB0025B0BD = {
 			isa = PBXGroup;
 			children = (
@@ -145,19 +181,16 @@
 		A6F96A8422B8B7BB0025B0BD /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
-				A6F96A8522B8B7BB0025B0BD /* AppDelegate.swift */,
-				A6F96AAA22B8DE370025B0BD /* AppStateManager.swift */,
-				A6F96AA722B8DD1D0025B0BD /* Extension */,
-				A6F96AA022B8DA7C0025B0BD /* Chat */,
-				A6F96A9B22B8CC680025B0BD /* Conversations */,
-				0D36C93A22B98D0900F4F984 /* OnlineUsersViewController.swift */,
-				A6609B8422BA3EA7003914BF /* Login */,
-				A6F96A8922B8B7BB0025B0BD /* Main.storyboard */,
 				A6609B8B22BA648F003914BF /* GoogleService-Info.plist */,
 				A6F96A9122B8B7BC0025B0BD /* Info.plist */,
+				A6F96A8522B8B7BB0025B0BD /* AppDelegate.swift */,
+				A6F96AAA22B8DE370025B0BD /* AppStateManager.swift */,
+				A6609B8722BA4415003914BF /* ProgressHUD.swift */,
+				A6F96AA722B8DD1D0025B0BD /* Extension */,
+				A69051AE22BCD4610091B45D /* View Controllers */,
 				A6F96A8C22B8B7BC0025B0BD /* Assets.xcassets */,
 				A6F96A8E22B8B7BC0025B0BD /* LaunchScreen.storyboard */,
-				A6609B8722BA4415003914BF /* ProgressHUD.swift */,
+				A6F96A8922B8B7BB0025B0BD /* Main.storyboard */,
 			);
 			path = ChatApp;
 			sourceTree = "<group>";
@@ -339,10 +372,12 @@
 				A6609B8822BA4415003914BF /* ProgressHUD.swift in Sources */,
 				A6F96AB322B8ECC60025B0BD /* ChatViewModel.swift in Sources */,
 				A6F96A9A22B8C1C50025B0BD /* View+Extension.swift in Sources */,
+				A69051B122BCD4F80091B45D /* CreateGroupViewController.swift in Sources */,
 				A6F96A8622B8B7BB0025B0BD /* AppDelegate.swift in Sources */,
 				A6609B8622BA3EB5003914BF /* LoginUser.swift in Sources */,
 				A6F96A9F22B8CC970025B0BD /* OnlineUserCollectionViewCell.swift in Sources */,
 				A6F96AA622B8DCC30025B0BD /* Message.swift in Sources */,
+				A69051B322BCF37F0091B45D /* UsersViewController.swift in Sources */,
 				A6F96AB522B8F7520025B0BD /* ChatProtocols.swift in Sources */,
 				A6F96A9D22B8CC810025B0BD /* MessageHeadTableViewCell.swift in Sources */,
 				A6F96AAF22B8E1ED0025B0BD /* MyUser.swift in Sources */,
@@ -352,6 +387,7 @@
 				A6609B8A22BA5B74003914BF /* LoginViewModel.swift in Sources */,
 				0D51C4D322B9837800F05406 /* OnlineUser.swift in Sources */,
 				A6F96AA322B8DA9B0025B0BD /* MyMessage.swift in Sources */,
+				A69051B522BD0F8D0091B45D /* UsersTableViewCell.swift in Sources */,
 				A6F96AAB22B8DE370025B0BD /* AppStateManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

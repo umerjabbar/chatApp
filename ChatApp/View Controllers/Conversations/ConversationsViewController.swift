@@ -18,6 +18,8 @@ class ConversationsViewController: UIViewController {
     @IBOutlet weak var onlineUserWarningLabel: UILabel!
     @IBOutlet weak var messageHeadWarningLabel: UILabel!
     
+    var selectedItem : MessageHead?
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
@@ -34,11 +36,7 @@ class ConversationsViewController: UIViewController {
         self.viewModel.getOnlineUsers()
         self.viewModel.getMessageHeads()
         self.viewModel.offlineFunction()
-        
-        //PeekPop
-        if traitCollection.forceTouchCapability == UIForceTouchCapability.available {
-            registerForPreviewing(with: self, sourceView: self.view)
-        }
+
         
     }
     
@@ -61,6 +59,12 @@ class ConversationsViewController: UIViewController {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         (UIApplication.shared.delegate)!.window??.rootViewController = vc
     }
+    
+    @IBAction func createGroupButtonAction(_ sender: UIButton) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "CreateGroupViewController") as! CreateGroupViewController
+        self.present(vc, animated: true, completion: nil)
+    }
+    
     
     
 }
@@ -149,7 +153,15 @@ extension ConversationsViewController : UITableViewDelegate {
         //        let nav = UINavigationController(rootViewController: ChatViewController())
         //        self.present(nav, animated: true, completion: nil)
         
+        //PeekPop
+        if traitCollection.forceTouchCapability == UIForceTouchCapability.available {
+            if let cell = tableView.cellForRow(at: indexPath){
+                registerForPreviewing(with: self, sourceView: cell.contentView)
+            }
+        }
+        
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+        self.selectedItem = self.viewModel.messageHeads[indexPath.row]
         vc.viewModel.chatType = self.viewModel.messageHeads[indexPath.row].chatType ?? "group"
         vc.viewModel.item = self.viewModel.messageHeads[indexPath.row]
         self.present(vc, animated: true, completion: nil)
@@ -177,8 +189,12 @@ extension ConversationsViewController : UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         
-        previewingContext.sourceRect = view.frame
+//        previewingContext.sourceRect = view.frame
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+        if let item = self.selectedItem{
+            vc.viewModel.item = item
+            vc.viewModel.chatType = item.chatType ?? "group"
+        }
         return vc
         
     }
@@ -186,6 +202,10 @@ extension ConversationsViewController : UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+        if let item = self.selectedItem{
+            vc.viewModel.item = item
+            vc.viewModel.chatType = item.chatType ?? "group"
+        }
         self.present(vc, animated: true, completion: nil)
         
     }

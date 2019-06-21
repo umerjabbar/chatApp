@@ -77,10 +77,16 @@ internal class ChatViewController: MessagesViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.becomeFirstResponder()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.resignFirstResponder()
         self.view.endEditing(true)
+        self.viewModel.killAllObservers()
     }
     
     @IBAction func backButtonAction(_ sender: UIButton) {
@@ -101,7 +107,7 @@ internal class ChatViewController: MessagesViewController {
             messageInputBar.topStackViewPadding = .zero
         } else {
             let label = UILabel()
-            label.text = "nathan is typing..."
+            label.text = "is typing..."
             label.font = UIFont.systemFont(ofSize: 12)
             messageInputBar.topStackView.addArrangedSubview(label)
             messageInputBar.topStackViewPadding.top = 6
@@ -243,7 +249,7 @@ internal class ChatViewController: MessagesViewController {
 extension ChatViewController: MessagesDataSource {
     
     func currentSender() -> Sender {
-        return Sender(id: "\(self.viewModel.currentUser.id)", displayName: "\(self.viewModel.currentUser.id)")
+        return Sender(id: "\(self.viewModel.currentUser.id!)", displayName: "\(self.viewModel.currentUser.name!)")
     }
     
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
@@ -344,11 +350,6 @@ extension ChatViewController: MessagesDisplayDelegate {
         switch message.kind {
         case .photo(let media):
             if let url = media.url {
-                let placeholderImage = #imageLiteral(resourceName: "logoPlaceHolder")
-//                imageView.kf.setImage(with: url, placeholder: placeholderImage, options: nil, progressBlock: nil) { (image, error, cache, url) in
-//
-//                }
-//                imageView.setImage(withURL: url, placeholderImage: placeholderImage, imageTransition: UIImageView.ImageTransition.crossDissolve(0.2), runImageTransitionIfCached: true)
                 imageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder-profile-sq"))
                 imageView.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                 imageView.layer.borderWidth = 1
@@ -363,9 +364,9 @@ extension ChatViewController: MessagesDisplayDelegate {
     }
     
     
-    func avatarPosition(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> AvatarPosition {
-        return AvatarPosition(horizontal: .natural, vertical: .cellTop)
-    }
+//    func avatarPosition(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> AvatarPosition {
+//        return AvatarPosition(horizontal: .natural, vertical: .cellTop)
+//    }
     
     
     
@@ -731,7 +732,8 @@ extension ChatViewController : ChatResponseDelegate {
     func newMessageReceived(message : MyMessage) {
         DispatchQueue.main.async {
             self.viewModel.messageList.append(message)
-            self.messagesCollectionView.insertSections([self.viewModel.messageList.count - 1])
+//            self.messagesCollectionView.insertSections([self.viewModel.messageList.count - 1])
+            self.messagesCollectionView.reloadData()
             self.messagesCollectionView.scrollToBottom(animated: true)
         }
     }

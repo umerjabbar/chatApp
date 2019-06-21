@@ -33,6 +33,8 @@ class ChatViewModel : NSObject {
     var messageList = [MyMessage]()
     var users = [MyUser]()
     
+    var observers = [UInt]()
+    
     
     let reference = Database.database().reference()
     var fireBaseRef = Database.database().reference().child("Chat/sample/messages");
@@ -41,6 +43,14 @@ class ChatViewModel : NSObject {
     var fireBaseRefData2 = Database.database().reference().child("Chat/sample/data");
     
     weak var delegate : ChatResponseDelegate?
+    
+    
+    
+    func killAllObservers (){
+        self.observers.forEach { (observer) in
+            self.reference.removeObserver(withHandle: observer)
+        }
+    }
     
     func setup(){
         if self.item == nil {
@@ -65,23 +75,11 @@ class ChatViewModel : NSObject {
         }
     }
     
-    func getUsers() {
-        self.fireBaseRefData.child("users").observeSingleEvent(of: .value) { (snapshot) in
-            guard let value = snapshot.value as? [String : Any] else{return}
-            let values = value.map({ (key,val) -> Any in
-                return val
-            })
-            guard let jsonArray = JSON(rawValue: values) else{return}
-            self.users = jsonArray.arrayValue.map({ MyUser(fromJson: $0)})
-        }
-        
-    }
-    
     func onLoadEarlier() {
         if (self.messageList.count >= self.previousMessageLoadlimit && (self.previousDataReceived ??  Int(self.previousMessageLoadlimit) >=  self.previousMessageLoadlimit) && !self.previousMessageLoadRequest) {
             self.previousMessageLoadRequest = true
             guard let messageId = self.messageList.first?.messageId else{return}
-            self.fireBaseRef.queryOrderedByKey().queryEnding(atValue: messageId).queryLimited(toFirst: self.previousMessageLoadlimit).observe(.value) { (snapshot) in
+            let observer = self.fireBaseRef.queryOrderedByKey().queryEnding(atValue: messageId).queryLimited(toFirst: self.previousMessageLoadlimit).observe(.value) { (snapshot) in
                 guard let value = snapshot.value as? [String : Any] else{return}
                 let values = value.map({ (key,val) -> Any in
                     return val
@@ -99,16 +97,18 @@ class ChatViewModel : NSObject {
 
                 self.previousMessageLoadRequest = false
             }
+            self.observers.append(observer)
         }
     }
     
     
     func observeNewMessage() {
-        self.fireBaseRef.queryLimited(toLast: self.previousMessageLoadlimit).observe(.childAdded) { (snapshot) in
+        let observer = self.fireBaseRef.queryLimited(toLast: self.previousMessageLoadlimit).observe(.childAdded) { (snapshot) in
             guard let value = snapshot.value as? [String : Any] else{return}
             let message = Message(fromJson: JSON(value))
             self.delegate?.newMessageReceived(message: self.makeMyMessage(message: message))
         }
+        self.observers.append(observer)
     }
     
     func sendMessage(body : String, type : Int){
@@ -184,22 +184,6 @@ class ChatViewModel : NSObject {
         
     }
     
-    func makeGroupChatHeads(message: String){
-        self.users.forEach { (user) in
-            Database.database().reference().child("Users/\(user.id!)/ChatHeads/\(self.item.id!)").setValue(
-                [
-                    "id" : "\(self.item.id!)",
-                    "name" : "\(self.item.name!)",
-                    "image" : "\(self.item.image!)",
-                    "message" : "\(message)",
-                    "time" : "\(Date().getString())",
-                    "otherUser" : "\(user.id!)",
-                    "chatType" : "individual",
-                ]
-            )
-        }
-    }
-    
     
     func makeMyMessage(message : Message) -> MyMessage{
         let body = message.body ?? "unknown"
@@ -226,6 +210,98 @@ class ChatViewModel : NSObject {
             return MyMessage(text: body, sender: sender, messageId: id, date: date, status : status)
         }
         
+    }
+    
+}
+
+
+// Goup Chat Functions
+extension ChatViewModel {
+    
+    func createGroup(name: String, image: String, users: [MyUser]){
+        guard let key = self.reference.child("Chat").childByAutoId().key else{return}
+        self.reference.child("Chat/\(key)/data").child("info").setValue([
+            "id" : key,
+            "name" : name,
+            "image" : image,
+            "createdAt" : Date().getString(),
+            ])
+        self.reference.child("Chat/\(key)/data").child("users").setValue(self.getUserDict(users: users))
+        users.forEach { (user) in
+            self.makeGroupChatHeadsFirstTime(id: key, name: name, image: image, userId: user.id)
+        }
+    }
+    
+    func makeGroupChatHeadsFirstTime(id: String, name: String, image: String, userId : String){
+        self.users.forEach { (user) in
+            Database.database().reference().child("Users/\(userId)/ChatHeads/\(id)").setValue(
+                [
+                    "id" : "\(id)",
+                    "name" : "\(name)",
+                    "image" : "\(image)",
+                    "message" : "",
+                    "time" : "\(Date().getString())",
+                    "otherUser" : "\(user.id!)",
+                    "chatType" : "group",
+                ]
+            )
+        }
+    }
+    
+    func makeGroupChatHeads(message: String){
+        self.users.forEach { (user) in
+            Database.database().reference().child("Users/\(user.id!)/ChatHeads/\(self.item.id!)").setValue(
+                [
+                    "id" : "\(self.item.id!)",
+                    "name" : "\(self.item.name!)",
+                    "image" : "\(self.item.image!)",
+                    "message" : "\(message)",
+                    "time" : "\(Date().getString())",
+                    "otherUser" : "\(user.id!)",
+                    "chatType" : "group",
+                ]
+            )
+        }
+    }
+    
+    func getUsers() {
+        self.fireBaseRefData.child("users").observeSingleEvent(of: .value) { (snapshot) in
+            guard let value = snapshot.value as? [String : Any] else{return}
+            let values = value.map({ (key,val) -> Any in
+                return val
+            })
+            guard let jsonArray = JSON(rawValue: values) else{return}
+            self.users = jsonArray.arrayValue.map({ MyUser(fromJson: $0)})
+        }
+        
+    }
+    
+    func addUserToGroup(user: MyUser){
+        self.reference.child("Chat/\(self.item.id!)/data").child("users").child(user.id).setValue(user.toDictionary())
+        Database.database().reference().child("Users/\(user.id!)/ChatHeads/\(self.item.id!)").setValue(
+            [
+                "id" : "\(self.item.id!)",
+                "name" : "\(self.item.name!)",
+                "image" : "\(self.item.image!)",
+                "message" : "",
+                "time" : "\(Date().getString())",
+                "otherUser" : "\(user.id!)",
+                "chatType" : "group",
+            ]
+        )
+    }
+    
+    func removeUserToGroup(user: MyUser){
+        self.reference.child("Chat/\(self.item.id!)/data").child("users").child(user.id).removeValue()
+        Database.database().reference().child("Users/\(user.id!)/ChatHeads/\(self.item.id!)").removeValue()
+    }
+    
+    func getUserDict(users : [MyUser]) -> [String : MyUser]{
+        var dictUsers = [String: MyUser]()
+        users.forEach { (user) in
+            dictUsers[user.id] = user
+        }
+        return dictUsers
     }
     
 }
