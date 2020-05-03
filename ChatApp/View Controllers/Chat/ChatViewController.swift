@@ -249,7 +249,7 @@ internal class ChatViewController: MessagesViewController {
 extension ChatViewController: MessagesDataSource {
     
     func currentSender() -> Sender {
-        return Sender(id: "\(self.viewModel.currentUser.id!)", displayName: "\(self.viewModel.currentUser.name!)")
+        return Sender(id: "\(self.viewModel.currentUser.id)", displayName: "\(self.viewModel.currentUser.name)")
     }
     
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
@@ -274,25 +274,6 @@ extension ChatViewController: MessagesDataSource {
     }
     
     func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        
-//        let dateString = formatter.string(from: message.sentDate)
-        if self.isFromCurrentSender(message: message){
-//            let status = message.status
-//            if status.isRead{
-//                let attachment = NSTextAttachment()
-//                attachment.image = #imageLiteral(resourceName: "read")
-//                attachment.bounds = CGRect(x: 0, y: -5, width: 16, height: 16)
-////                attributedString.append(NSAttributedString(attachment: attachment))
-//                return NSAttributedString(attachment: attachment)
-//            }else if status.isDelivered{
-////                var attributedString = NSAttributedString(string: )
-//                let attachment = NSTextAttachment()
-//                attachment.image = #imageLiteral(resourceName: "sent")
-//                attachment.bounds = CGRect(x: 0, y: -5, width: 16, height: 16)
-////                attributedString.append(NSAttributedString(attachment: attachment))
-//                return NSAttributedString(attachment: attachment)
-//            }
-        }
         return NSAttributedString(string: "", attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
     }
     
@@ -324,8 +305,6 @@ extension ChatViewController: MessagesDisplayDelegate {
     }
     
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
-//        let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
-//        return .bubbleTail(corner, .pointedEdge)
         return .custom({ (messageContainer) in
             messageContainer.cornerRadius = 6
             messageContainer.shadowColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
@@ -337,8 +316,6 @@ extension ChatViewController: MessagesDisplayDelegate {
                 messageContainer.borderColor = self.themeColor
             }
         })
-        //        let configurationClosure = { (view: MessageContainerView) in}
-        //        return .custom(configurationClosure)
     }
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
@@ -362,13 +339,6 @@ extension ChatViewController: MessagesDisplayDelegate {
             break
         }
     }
-    
-    
-//    func avatarPosition(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> AvatarPosition {
-//        return AvatarPosition(horizontal: .natural, vertical: .cellTop)
-//    }
-    
-    
     
     // MARK: - Location Messages
     
@@ -444,6 +414,7 @@ extension ChatViewController: MessageCellDelegate {
                     let lightbox = LightboxController(images: images, startIndex: 0)
                     lightbox.dismissalDelegate = self
                     lightbox.dynamicBackground = true
+//                    vc.modalPresentationStyle = .fullScreen
                     self.present(lightbox, animated: true, completion: nil)
                 }
                 break
@@ -451,6 +422,7 @@ extension ChatViewController: MessageCellDelegate {
                 if let url = cell.url{
                     let vc = AVPlayerViewController()
                     vc.player = AVPlayer(url: url)
+                    vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: {
                         vc.player?.play()
                     })
@@ -461,7 +433,7 @@ extension ChatViewController: MessageCellDelegate {
                 break
             }
             
-        }else if let cd = cell as? LocationMessageCell {
+        }else if cell is LocationMessageCell {
             print("Media Message Tapped \( cell)")
             
 //            guard let coordinates = cd.location?.coordinate else{return}
@@ -681,6 +653,7 @@ extension ChatViewController : GalleryControllerDelegate {
         let lightbox = LightboxController(images: lightboxImages, startIndex: 0)
         lightbox.dismissalDelegate = self
         lightbox.dynamicBackground = true
+        gallery.modalPresentationStyle = .fullScreen
         gallery.present(lightbox, animated: true, completion: nil)
     }
 }

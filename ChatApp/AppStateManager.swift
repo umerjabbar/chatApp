@@ -13,9 +13,9 @@ class AppStateManager {
     static let shared = AppStateManager()
     
     var name = "\(UIDevice.current.name)"
-    var id = "\(UIDevice.current.identifierForVendor?.uuidString ?? "123")"
+    var id = "\(UIDevice.current.identifierForVendor?.uuidString ?? UIDevice.current.name.replacingOccurrences(of: " ", with: "") )"
     var image = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg"
-    var email = ""
+    var email = "test@yopmail.com"
     var username = ""
     
 }

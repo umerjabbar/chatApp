@@ -25,7 +25,6 @@ class UsersViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
-        
     }
     
     @IBAction func backbuttonAction(_ sender: Any) {

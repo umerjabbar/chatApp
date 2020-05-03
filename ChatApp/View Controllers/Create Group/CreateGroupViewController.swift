@@ -85,6 +85,7 @@ extension CreateGroupViewController : UICollectionViewDelegate {
             
         }else{
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "UsersViewController") as! UsersViewController
+            vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
         }
     }

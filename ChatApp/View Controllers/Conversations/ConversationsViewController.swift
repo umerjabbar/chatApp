@@ -44,28 +44,9 @@ class ConversationsViewController: UIViewController {
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "OnlineUsersViewController") as! OnlineUsersViewController
         vc.viewModel = self.viewModel
+        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
-    
-    @IBAction func logoutButtonAction(_ sender: Any) {
-        UserDefaults.standard.removeObject(forKey: "loggedUserId")
-        if UserDefaults.standard.string(forKey: "loggedUserName") != nil  {
-            UserDefaults.standard.removeObject(forKey: "loggedUserName")
-        }
-        if UserDefaults.standard.string(forKey: "loggedUserImage") != nil  {
-            UserDefaults.standard.removeObject(forKey: "loggedUserImage")
-        }
-        
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        (UIApplication.shared.delegate)!.window??.rootViewController = vc
-    }
-    
-    @IBAction func createGroupButtonAction(_ sender: UIButton) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "CreateGroupViewController") as! CreateGroupViewController
-        self.present(vc, animated: true, completion: nil)
-    }
-    
-    
     
 }
 
@@ -119,15 +100,7 @@ extension ConversationsViewController : UICollectionViewDelegate {
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
         
-                let user = self.viewModel.onlineUsers[indexPath.item]
-        //        let ind = self.viewModel.messageHeads.firstIndex { (head) -> Bool in
-        //            return head.otherUser == user.id
-        //        }
-        //        if let index = ind {
-        //            let item = self.viewModel.messageHeads[index]
-        //            vc.viewModel.item = item
-        //            vc.viewModel.chatType = "individual"
-        //        }else{
+        let user = self.viewModel.onlineUsers[indexPath.item]
         let item = MessageHead()
         item.id = user.id
         item.name = user.name
@@ -138,9 +111,8 @@ extension ConversationsViewController : UICollectionViewDelegate {
         item.chatType = "individual"
         
         vc.viewModel.item = item
-        vc.viewModel.chatType = "individual"
         //        }
-        
+        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -162,8 +134,8 @@ extension ConversationsViewController : UITableViewDelegate {
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
         self.selectedItem = self.viewModel.messageHeads[indexPath.row]
-        vc.viewModel.chatType = self.viewModel.messageHeads[indexPath.row].chatType ?? "group"
         vc.viewModel.item = self.viewModel.messageHeads[indexPath.row]
+        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
         
     }
@@ -193,7 +165,6 @@ extension ConversationsViewController : UIViewControllerPreviewingDelegate {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
         if let item = self.selectedItem{
             vc.viewModel.item = item
-            vc.viewModel.chatType = item.chatType ?? "group"
         }
         return vc
         
@@ -204,8 +175,8 @@ extension ConversationsViewController : UIViewControllerPreviewingDelegate {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
         if let item = self.selectedItem{
             vc.viewModel.item = item
-            vc.viewModel.chatType = item.chatType ?? "group"
         }
+        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
         
     }

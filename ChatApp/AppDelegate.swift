@@ -22,14 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
         
-        guard let id = UserDefaults.standard.string(forKey: "loggedUserId") else{return true}
-        AppStateManager.shared.id = id
-        if let name = UserDefaults.standard.string(forKey: "loggedUserName")  {
-            AppStateManager.shared.name = name
-        }
-        if let image = UserDefaults.standard.string(forKey: "loggedUserImage")  {
-            AppStateManager.shared.image = image
-        }
+//        guard let id = UserDefaults.standard.string(forKey: "loggedUserId") else{return true}
+//        AppStateManager.shared.id = id
+//        if let name = UserDefaults.standard.string(forKey: "loggedUserName")  {
+//            AppStateManager.shared.name = name
+//        }
+//        if let image = UserDefaults.standard.string(forKey: "loggedUserImage")  {
+//            AppStateManager.shared.image = image
+//        }
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = mainStoryboard.instantiateViewController(withIdentifier: "ConversationsViewController")
         self.window?.rootViewController = vc
